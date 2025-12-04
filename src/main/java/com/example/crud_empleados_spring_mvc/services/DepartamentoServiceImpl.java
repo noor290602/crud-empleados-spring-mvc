@@ -4,21 +4,26 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.crud_empleados_spring_mvc.dao.DepartamentoDao;
 import com.example.crud_empleados_spring_mvc.entities.Departamento;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class DepartamentoServiceImpl implements DepartamentoService{
+
+    private final DepartamentoDao departamentoDao;
+   
+    @Override
+    public List<Departamento> getAllDepartamentos() {
+        return departamentoDao.findAll();
+    }
 
     @Override
     public Departamento saveDepartamento(Departamento departamento) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveDepartamento'");
+        return departamentoDao.save(departamento);
     }
 
-    @Override
-    public List<Departamento> getAllDepartamentos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllDepartamentos'");
-    }
 
 }

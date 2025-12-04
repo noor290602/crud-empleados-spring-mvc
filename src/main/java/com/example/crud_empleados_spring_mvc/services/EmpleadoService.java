@@ -5,15 +5,19 @@ import java.util.List;
 import com.example.crud_empleados_spring_mvc.entities.Empleado;
 
 public interface EmpleadoService {
+
     List<Empleado> getAllEmpleados();
 
-    Empleado saveEmpleado();
+    Empleado getEmpleado(int empleadoId);
 
-    Empleado getEmpleadoById();
+    Empleado saveEmpleado(Empleado empleado);
 
-    void delete(Empleado empleado);
+    void deleteEmpleado(Empleado empleado);
 
     Empleado updateEmpleado(int empleadoId);
 
-    List<Empleado> getEmpleadoByName(String name);
+    List<Empleado> getEmpleadoByName(String nombre);
+
+    boolean existsEmpleadoBySalario(double salario);
+
 }
