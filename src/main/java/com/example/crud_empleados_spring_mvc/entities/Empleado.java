@@ -34,6 +34,7 @@ public class Empleado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String nombre;
     private String primerApellido;
     private String segundoApellido;
     // Ésta anotación es para que el género se guarde en la tabla como String,

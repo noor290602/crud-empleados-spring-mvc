@@ -10,8 +10,8 @@ import com.example.crud_empleados_spring_mvc.entities.Empleado;
 @Repository
 public interface EmpleadoDao extends JpaRepository<Empleado, Integer> {
 
-    List<Empleado> findByName(String name);
+    List<Empleado> findByNombre(String nombre);
 
-    boolean existsBySalary(double salary);
+    boolean existsBySalario(double salario);
 
 }

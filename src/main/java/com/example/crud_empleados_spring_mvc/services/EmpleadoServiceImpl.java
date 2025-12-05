@@ -64,12 +64,12 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
      @Override
     public List<Empleado> getEmpleadoByName(String name) {
-        return empleadoDao.findByName(name);
+        return empleadoDao.findByNombre(name);
     }
  
     @Override
     public boolean existsEmpleadoBySalario(double salary) {
-       return empleadoDao.existsBySalary(salary);
+       return empleadoDao.existsBySalario(salary);
     }
  
  
