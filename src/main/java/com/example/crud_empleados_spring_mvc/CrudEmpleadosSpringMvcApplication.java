@@ -69,9 +69,33 @@ public class CrudEmpleadosSpringMvcApplication implements CommandLineRunner {
 			.departamento(dpto2)
 			.build();
 
+			
+		Empleado emp3 = Empleado.builder()
+				.nombre("Laura")
+				.primerApellido("González")
+				.segundoApellido("Ruiz")
+				.genero(Genero.MUJER)
+				.fechaInicio(LocalDate.of(1980, Month.JUNE, 15))
+				.salario(3500)
+				.departamento(dpto2)
+				.build();
+
+		Empleado emp4 = Empleado.builder()
+				.nombre("Andrés")
+				.primerApellido("Serrano")
+				.segundoApellido("López")
+				.genero(Genero.HOMBRE)
+				.fechaInicio(LocalDate.of(1990, Month.SEPTEMBER, 22))
+				.salario(4200)
+				.departamento(dpto2)
+				.build();
+
+
 		// Persistir (guardar) los EMPLEADOS
 		empleadoService.saveEmpleado(emp1);
 		empleadoService.saveEmpleado(emp2);
+		empleadoService.saveEmpleado(emp3);
+		empleadoService.saveEmpleado(emp4);
 	}
 
 }
