@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado Empleados</title>
-    <link rel="image" type="image" href="../static/images/empleados.jpg">
+    <link rel="icon" type="image/jpeg" th:href="@{/images/empleados.jpg}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,8 +38,8 @@
         font-weight: bold;
     }
 
-    .sin-estilo {
-        border: none;
+    .sin-estilo, table {
+        border-width: 0 !important;
         background-color: transparent;
         padding: 20px;
     }
@@ -85,10 +85,15 @@
         padding: 10px 10px;
 
         &:hover {
-            background-color: rgb(219,112,147);
+            background-color: rgb(249, 154, 170);
             color: white;
             cursor: pointer;
         }
+    }
+
+    .iconos-button:hover img {
+        /* Este filtro convierte casi cualquier color en blanco puro */
+        filter: brightness(0) invert(1); 
     }
 </style>
 </head>
@@ -110,6 +115,8 @@
                     <th>Apellidos</th>
                     <th>Salario</th>
                     <th class="sin-estilo"></th>
+                    <th class="sin-estilo"></th>
+                    <th class="sin-estilo"></th>
                 </tr>
             </thead>
             <tbody>
@@ -127,6 +134,8 @@
                     </td>
                     <td class="sin-estilo">
                         <div class="iconos-button">
+                            <!-- El '@' en thymleaf evalua la URL o endpoint que que recibita la peticion
+                             al hacer click en el enlace hipertexto -->
                             <a th:href="@{'/empleados/add/' + ${empleado.id}}">
                                 <img th:src="@{/images/svg/edit.svg}" alt="Icono editar">
                             </a>
