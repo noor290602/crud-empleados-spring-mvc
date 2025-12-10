@@ -159,7 +159,7 @@
                         <div class="iconos-button">
                             <!-- El '@' en thymleaf evalua la URL o endpoint que que recibita la peticion
                              al hacer click en el enlace hipertexto -->
-                            <a th:href="@{'/empleados/add/' + ${empleado.id}}">
+                            <a th:href="@{'/empleados/update/' + ${empleado.id}}">
                                 <img th:src="@{/images/svg/edit.svg}" alt="Icono editar">
                             </a>
                         </div>

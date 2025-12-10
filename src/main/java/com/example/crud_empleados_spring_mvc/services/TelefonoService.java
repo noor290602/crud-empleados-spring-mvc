@@ -5,6 +5,6 @@ import java.util.List;
 import com.example.crud_empleados_spring_mvc.entities.Telefono;
 
 public interface TelefonoService {
-    List<Telefono> getTelefonos();
+    List<Telefono> getAllTelefonos();
     Telefono saveTelefono(Telefono telefono);
 }

@@ -194,14 +194,15 @@
         </div>
         <div>
             <label for="telefonos">Telefono(s): </label>
-            <input type="text" id="telefonos" name="telefonosEmpleado" placeholder="Separe los teléfonos por ';'" required>
+            <input type="text" id="telefonos" name="telefonosEmpleado" placeholder="Separe los teléfonos por ';'" th:value="${numsTelefono}" required>
         </div>
         <div>
             <label for="emails">Email(s): </label>
-            <input type="text" id="emails" name="emailsEmpleado" placeholder="Separe los emails por ';'" required>
+            <input type="text" id="emails" name="emailsEmpleado" placeholder="Separe los emails por ';'" th:value="${dirsCorreo}" required>
         </div>
         <div class="btnSubmit">
             <button type="submit">Guardar</button>
         </div>
+    </form>
 </body>
 </html>

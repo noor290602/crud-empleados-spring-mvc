@@ -2,6 +2,7 @@ package com.example.crud_empleados_spring_mvc.controllers;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +24,8 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-
 
 @Controller
 @RequestMapping("/empleados")
@@ -141,5 +141,44 @@ public class EmpleadoController {
         }
 
         return "redirect:/empleados/listar";
+    }
+
+    /* Método que actualiza/modifica un Empleado cuyo id se recibe como parámetro */
+    @GetMapping("/update/{idEmpleado}")
+    public String modificarEmpleado(@PathVariable("idEmpleado") int idEmpleado, Model model) {
+
+        Empleado empleado = empleadoService.getEmpleado(idEmpleado);
+
+        List<Departamento> listaDepartamentos = departamentoService.getAllDepartamentos();
+        model.addAttribute("departamentos", listaDepartamentos);
+
+        /* Recuperar correos y tlfns del empleado */
+
+        List<Telefono> listaTelefonos = telefonoService.getAllTelefonos().stream()
+            .filter(t -> t.getEmpleado().equals(empleado))
+            .toList();
+
+        List<Correo> listaCorreos = correoService.getAllCorreos().stream()
+            .filter(c -> c.getEmpleado().equals(empleado))
+            .toList();
+
+        if (!listaTelefonos.isEmpty() && !listaCorreos.isEmpty()) {
+            String dirsCorreo = listaCorreos.stream()
+                .map(Correo::getEmail)
+                .collect(Collectors.joining(";"));
+
+            String numsTelefono = listaTelefonos.stream()
+                .map(Telefono::getNumero)
+                .collect(Collectors.joining(";"));
+            
+            model.addAttribute("dirsCorreo", dirsCorreo);
+            model.addAttribute("numsTelefono", numsTelefono);
+        }
+
+        empleadoService.updateEmpleado(idEmpleado);
+
+        model.addAttribute("empleado", empleado);
+
+        return "formsAltaModificacion";
     }
 }

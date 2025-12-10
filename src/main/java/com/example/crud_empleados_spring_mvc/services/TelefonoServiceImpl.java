@@ -16,7 +16,7 @@ public class TelefonoServiceImpl implements TelefonoService {
     private final TelefonoDao telefonoDao;
 
     @Override
-    public List<Telefono> getTelefonos() {
+    public List<Telefono> getAllTelefonos() {
         return telefonoDao.findAll();
     }
 

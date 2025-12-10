@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "telefonos")
@@ -25,6 +26,7 @@ public class Telefono {
 private int id;
 private String numero;
 
+@ToString.Exclude
 @ManyToOne(fetch = FetchType.LAZY)
 private Empleado empleado;
 }
