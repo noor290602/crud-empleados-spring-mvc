@@ -1,22 +1,29 @@
 package com.example.crud_empleados_spring_mvc.controllers;
 
+import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.crud_empleados_spring_mvc.entities.Correo;
 import com.example.crud_empleados_spring_mvc.entities.Departamento;
 import com.example.crud_empleados_spring_mvc.entities.Empleado;
+import com.example.crud_empleados_spring_mvc.entities.Telefono;
+import com.example.crud_empleados_spring_mvc.services.CorreoService;
 import com.example.crud_empleados_spring_mvc.services.DepartamentoService;
 import com.example.crud_empleados_spring_mvc.services.EmpleadoService;
+import com.example.crud_empleados_spring_mvc.services.TelefonoService;
 
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -27,6 +34,10 @@ public class EmpleadoController {
 
     private final EmpleadoService empleadoService;
     private final DepartamentoService departamentoService;
+    private final TelefonoService telefonoService;
+    private final CorreoService correoService;
+
+    private static Logger LOGGER = LoggerFactory.getLogger(EmpleadoController.class);
 
     // El metodo siguiente recibira peticiones (request), a la url:
     // localhost:8080/empleados/listar
@@ -46,7 +57,7 @@ public class EmpleadoController {
     }
     
     // Metodo que recibe la peticion (request) de alta de un empleado
-    @GetMapping("/add/{idEmpleado}")
+    @GetMapping("/add")
     public String altaEmpleado(Model model) {
 
         /* ¿CÓMO GESTIONA SPRING FRAMEWORK EL FORMULARIO?
@@ -84,4 +95,51 @@ public class EmpleadoController {
         return "redirect:/empleados/listar";
     }
     */
+
+    /* Método que recibe un empleado, en el cuerpo del protocolo HTTP,
+        mediante el metodo POST y lo persiste (guarda) en la tabla de empleados correspondiente
+    */
+    @PostMapping("/guardar")
+    public String guardarEmpleado(@ModelAttribute("empleado") Empleado empleado, 
+        @RequestParam(name = "telefonosEmpleado", required = false) String telefonosEmpleado, 
+        @RequestParam(name = "emailsEmpleado", required = false) String emailsEmpleado) {
+
+        /* Comprobar si el objeto empleado lo hemos recibido */
+        LOGGER.info("Empleado recibido: " + empleado);
+
+        Empleado empGuardado = empleadoService.saveEmpleado(empleado);
+
+        if (telefonosEmpleado != "" || telefonosEmpleado != null) {
+
+            List<String> listaTlfnosEmpleado = Arrays.stream(telefonosEmpleado.split(";"))
+                        .map(String::trim) 
+                        .toList();
+
+            listaTlfnosEmpleado.stream().forEach( tel -> {
+                Telefono telefono = Telefono.builder()
+                    .numero(tel)
+                    .empleado(empGuardado)
+                    .build();
+                    
+                telefonoService.saveTelefono(telefono);
+            });
+        }
+
+        if (emailsEmpleado != "" || emailsEmpleado != null) {
+ 
+            List<String> listaCorreosEmpleado = Arrays.stream(emailsEmpleado.split(";"))
+                .map(String::trim) 
+                .toList();
+    
+            listaCorreosEmpleado.forEach(email -> {
+                Correo correo = Correo.builder()
+                    .email(email)
+                    .empleado(empGuardado)
+                    .build();
+                correoService.saveCorreo(correo);
+            });
+        }
+
+        return "redirect:/empleados/listar";
+    }
 }

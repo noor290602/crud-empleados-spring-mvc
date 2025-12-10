@@ -58,16 +58,31 @@
 
     .iconos-button {
         display: flex;
-        justify-content: center;
+        justify-content: start;
         align-items: center;
         border-radius: 8px;
         color: black;
         padding: 10px 10px;
+        border: 1px solid rgb(249, 154, 170);
+        width: fit-content;
+
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: black;
+        }
 
         &:hover {
             background-color: rgb(249, 154, 170);
             color: white;
             cursor: pointer;
+
+            a span {
+                color: white;
+            }
         }
     }
 
@@ -113,6 +128,12 @@
             }
         }
     }
+
+    input, select {
+        padding: 5px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
 </style>
 </head>
 <body>
@@ -121,7 +142,15 @@
         <h1>Alta/Modificación de empleados</h1>
         <p>💼</p>
     </div>
-    <form th:action="@{/add}" th:object="${empleado}" method="post">
+     <div style="width: 100%; padding: 0% 20%;">
+        <div class="iconos-button">
+            <a th:href="@{/empleados/listar}">
+                <img th:src="@{/images/svg/volver.svg}" alt="Icono añadir empleado">
+                <span>Volver a la lista de empleados</span>
+            </a>
+        </div>
+    </div>
+    <form th:action="@{/empleados/guardar}" th:object="${empleado}" method="post">
         <div>
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" th:field="*{nombre}" required>
@@ -137,10 +166,10 @@
          <div>
             <fieldset>
                 <legend>Genero:</legend>
-                <input type="radio" id="masculino" th:field="*{genero}" value="MASCULINO">
-                <label for="masculino">Masculino</label><br>
-                <input type="radio" id="femenino" th:field="*{genero}" value="FEMENINO">
-                <label for="femenino">Femenino</label><br>
+                <input type="radio" id="hombre" th:field="*{genero}" value="HOMBRE">
+                <label for="hombre">Hombre</label><br>
+                <input type="radio" id="mujer" th:field="*{genero}" value="MUJER">
+                <label for="mujer">Mujer</label><br>
                 <input type="radio" id="otro" th:field="*{genero}" value="OTRO">
                 <label for="otro">Otro</label>
             </fieldset>
@@ -162,6 +191,14 @@
                         th:text="${departamento.nombre}">
                 </option>
             </select>
+        </div>
+        <div>
+            <label for="telefonos">Telefono(s): </label>
+            <input type="text" id="telefonos" name="telefonosEmpleado" placeholder="Separe los teléfonos por ';'" required>
+        </div>
+        <div>
+            <label for="emails">Email(s): </label>
+            <input type="text" id="emails" name="emailsEmpleado" placeholder="Separe los emails por ';'" required>
         </div>
         <div class="btnSubmit">
             <button type="submit">Guardar</button>

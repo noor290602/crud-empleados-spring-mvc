@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity // crea las tablas en la BBDD
 @Table(name = "departamentos")
@@ -35,6 +36,7 @@ public class Departamento implements Serializable {
     private String nombre;
     // cascade -> cuando se propage a empleado se elimina
     // mappedBy -> campo que manda (campo que está en el padre)
+    @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "departamento")
     private List<Empleado> listaEmpleados;
 
