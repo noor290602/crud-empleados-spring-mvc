@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle empleado</title>
+    <!-- Simulación de recurso estático para el icono (sustituye por la ruta correcta en tu entorno) -->
+    <link rel="icon" type="image/jpeg" href="via.placeholder.com">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="fonts.googleapis.com" rel="stylesheet">
+
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;    
+    }
+
+    h1 {
+        color: white;
+        text-align: center;
+        font-weight: bolder;
+    }
+
+    #titulo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1em;
+        width: 100%;
+        padding: 20px 10px;
+        background-color: pink;
+        margin-bottom: 1em;
+    }
+
+    #titulo p {
+        font-size: 2em;
+    }
+
+    .texto-bold {
+        font-weight: bold;
+        background-color: rgb(253, 230, 234);
+        padding: 5px;
+        border-radius: 4px;
+        display: inline-block;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1em;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .iconos-button {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        border-radius: 8px;
+        color: black;
+        padding: 10px 10px;
+        border: 1px solid rgb(249, 154, 170);
+        width: fit-content;
+    }
+
+    .iconos-button a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: black;
+    }
+
+    .iconos-button:hover {
+        background-color: rgb(249, 154, 170);
+        color: white;
+        cursor: pointer;
+    }
+
+    .iconos-button:hover a span {
+        color: white;
+    }
+
+    .iconos-button:hover img {
+        filter: brightness(0) invert(1); 
+    }
+
+    fieldset {
+        border-radius: 8px;
+        border: 1px solid pink;
+        padding: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .info-container {
+        padding: 2em;
+        border-radius: 24px;
+        border: 2px solid pink;
+        width: fit-content;
+    }
+    
+    .info-container div {
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+    }
+
+    label {
+        font-weight: normal;
+    }
+</style>
+</head>
+<body>
+    <!-- TODO cambiar esta vista. El metodo ya está hecho-->
+     <div id="titulo">
+        <p>💼</p>
+        <h1>Detalles del empleado</h1>
+        <p>💼</p>
+    </div>
+     <div style="width: 100%; padding: 0% 20%;">
+        <div class="iconos-button">
+            <a href="/empleados/listar">
+                <img src="img.icons8.com" alt="Icono volver">
+                <span>Volver a la lista de empleados</span>
+            </a>
+        </div>
+    </div>
+    
+    <div class="info-container">
+        <div>
+            <label>ID de empleado:</label>
+            <span class="texto-bold">101</span>
+        </div>
+        <div>
+            <label for="nombre">Nombre:</label>
+            <span class="texto-bold">Juan</span>
+        </div>
+        <div>
+            <label for="primerApellido">Primer apellido:</label>
+            <span class="texto-bold">Pérez</span>
+        </div>
+         <div>
+            <label for="segundoApellido">Segundo apellido:</label>
+            <span class="texto-bold">Gómez</span>
+        </div>
+         <div>
+            <fieldset>
+                <legend>Genero:</legend>
+                <span class="texto-bold">HOMBRE</span>
+            </fieldset>
+        </div>
+        <div>
+            <label for="fechaAlta">Fecha alta:</label>
+            <span class="texto-bold">15/01/2024</span>
+        </div>
+        <div>
+            <label for="salario">Salario:</label>
+            <span class="texto-bold">35000 €</span>
+        </div>
+        <div>
+            <label for="departamentos">Departamento:</label>
+            <span class="texto-bold">Marketing</span>
+        </div>
+        <div>
+            <label for="telefonos">Telefono(s): </label>
+            <span class="texto-bold">666111222; 912345678</span>
+        </div>
+        <div>
+            <label for="emails">Email(s): </label>
+            <span class="texto-bold">juan.perez@empresa.com</span>
+        </div>
+    </div>
+</body>
+</html>

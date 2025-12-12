@@ -39,6 +39,15 @@ public class EmpleadoController {
 
     private static Logger LOGGER = LoggerFactory.getLogger(EmpleadoController.class);
 
+    @GetMapping("/view/{idEmpleado}")
+    public String verEmpleado(@PathVariable("idEmpleado") int idEmpleado, Model model) {
+
+        Empleado empleado = empleadoService.getEmpleado(idEmpleado);
+        model.addAttribute("empleado", empleado);
+
+        return "empleadoVista";
+    }
+
     // El metodo siguiente recibira peticiones (request), a la url:
     // localhost:8080/empleados/listar
     @GetMapping("/listar")
@@ -115,6 +124,11 @@ public class EmpleadoController {
                         .map(String::trim) 
                         .toList();
 
+             /* Antes de  crear/modificar los correos y tlfns, hay que eliminar los asociados de ese empleado*/
+            if (telefonoService.existsByEmpleado(empleado)) {
+                telefonoService.deleteByEmpleado(empleado);
+            }
+
             listaTlfnosEmpleado.stream().forEach( tel -> {
                 Telefono telefono = Telefono.builder()
                     .numero(tel)
@@ -126,11 +140,16 @@ public class EmpleadoController {
         }
 
         if (emailsEmpleado != "" || emailsEmpleado != null) {
- 
+
             List<String> listaCorreosEmpleado = Arrays.stream(emailsEmpleado.split(";"))
-                .map(String::trim) 
-                .toList();
-    
+            .map(String::trim) 
+            .toList();
+            
+            /* Antes de  crear/modificar los correos y tlfns, hay que eliminar los asociados de ese empleado*/
+            if (correoService.existsByEmpleado(empleado)) {
+                correoService.deleteByEmpleado(empleado);
+            }
+
             listaCorreosEmpleado.forEach(email -> {
                 Correo correo = Correo.builder()
                     .email(email)
@@ -163,6 +182,7 @@ public class EmpleadoController {
             .toList();
 
         if (!listaTelefonos.isEmpty() && !listaCorreos.isEmpty()) {
+            
             String dirsCorreo = listaCorreos.stream()
                 .map(Correo::getEmail)
                 .collect(Collectors.joining(";"));
@@ -174,6 +194,8 @@ public class EmpleadoController {
             model.addAttribute("dirsCorreo", dirsCorreo);
             model.addAttribute("numsTelefono", numsTelefono);
         }
+
+        
 
         empleadoService.updateEmpleado(idEmpleado);
 

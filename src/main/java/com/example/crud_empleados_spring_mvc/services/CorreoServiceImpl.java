@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 
 import com.example.crud_empleados_spring_mvc.dao.CorreoDao;
 import com.example.crud_empleados_spring_mvc.entities.Correo;
+import com.example.crud_empleados_spring_mvc.entities.Empleado;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -22,5 +24,16 @@ public class CorreoServiceImpl implements CorreoService {
     @Override
     public Correo saveCorreo(Correo correo) {
         return correoDao.save(correo);
+    }
+
+    @Override
+    public boolean existsByEmpleado(Empleado empleado) {
+        return correoDao.existsByEmpleado(empleado);
+    }
+
+    @Override
+    @Transactional
+    public void deleteByEmpleado(Empleado empleado) {
+        correoDao.deleteByEmpleado(empleado);
     }
 }

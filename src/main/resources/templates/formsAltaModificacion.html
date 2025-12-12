@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
-     <style type="text/css">
+    <style type="text/css">
     * {
         margin: 0;
         padding: 0;
@@ -98,9 +98,14 @@
     }
 
     form {
-        padding: 2em;
+        padding: 1em;
         border-radius: 24px;
-        border: 2px solid pink;
+        border: 1px solid pink;
+        width: 60%;
+
+        label {
+            margin-right: 10px;
+        }
     
         div {
             margin-bottom: 15px;
@@ -151,6 +156,7 @@
         </div>
     </div>
     <form th:action="@{/empleados/guardar}" th:object="${empleado}" method="post">
+        <input type="hidden" th:field="*{id}">
         <div>
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" th:field="*{nombre}" required>
@@ -186,19 +192,20 @@
             <label for="departamentos">Departamentos:</label>
             <select id="departamentos" th:field="*{departamento}">
                 <option value="" selected>Seleccione una opción...</option>
-                <option th:each="departamento : ${departamentos}" 
-                        th:value="${departamento.id}" 
-                        th:text="${departamento.nombre}">
+                <option th:each="dpto : ${departamentos}" 
+                        th:value="${dpto.id}" 
+                        th:text="${dpto.nombre}"
+                        >
                 </option>
             </select>
         </div>
         <div>
             <label for="telefonos">Telefono(s): </label>
-            <input type="text" id="telefonos" name="telefonosEmpleado" placeholder="Separe los teléfonos por ';'" th:value="${numsTelefono}" required>
+            <input type="text" id="telefonos" name="telefonosEmpleado" placeholder="Separe los teléfonos por ';'" th:value="${numsTelefono}" size="50" required>
         </div>
         <div>
             <label for="emails">Email(s): </label>
-            <input type="text" id="emails" name="emailsEmpleado" placeholder="Separe los emails por ';'" th:value="${dirsCorreo}" required>
+            <input type="text" id="emails" name="emailsEmpleado" placeholder="Separe los emails por ';'" th:value="${dirsCorreo}" size="50" required>
         </div>
         <div class="btnSubmit">
             <button type="submit">Guardar</button>
