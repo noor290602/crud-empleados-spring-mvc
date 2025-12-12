@@ -10,4 +10,5 @@ public interface TelefonoService {
     Telefono saveTelefono(Telefono telefono);
     boolean existsByEmpleado(Empleado empleado);
     void deleteByEmpleado(Empleado empleado);
+    List<Telefono> findByEmpleado(Empleado empleado);
 }

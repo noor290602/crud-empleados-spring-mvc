@@ -38,4 +38,9 @@ public class TelefonoServiceImpl implements TelefonoService {
         telefonoDao.deleteByEmpleado(empleado);
     }
 
+    @Override
+    public List<Telefono> findByEmpleado(Empleado empleado) {
+        return telefonoDao.findByEmpleado(empleado);
+    }
+
 }

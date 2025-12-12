@@ -10,4 +10,5 @@ public interface CorreoService {
     Correo saveCorreo(Correo correo);
     boolean existsByEmpleado(Empleado empleado);
     void deleteByEmpleado(Empleado empleado);
+    List<Correo> findByEmpleado(Empleado empleado);
 }

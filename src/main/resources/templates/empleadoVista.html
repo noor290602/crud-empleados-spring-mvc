@@ -108,7 +108,7 @@
         padding: 2em;
         border-radius: 24px;
         border: 2px solid pink;
-        width: fit-content;
+        width: 60%;
     }
     
     .info-container div {
@@ -125,7 +125,6 @@
 </style>
 </head>
 <body>
-    <!-- TODO cambiar esta vista. El metodo ya está hecho-->
      <div id="titulo">
         <p>💼</p>
         <h1>Detalles del empleado</h1>
@@ -134,7 +133,7 @@
      <div style="width: 100%; padding: 0% 20%;">
         <div class="iconos-button">
             <a href="/empleados/listar">
-                <img src="img.icons8.com" alt="Icono volver">
+                <img th:src="@{/images/svg/volver.svg}" alt="Icono añadir empleado">
                 <span>Volver a la lista de empleados</span>
             </a>
         </div>
@@ -143,45 +142,45 @@
     <div class="info-container">
         <div>
             <label>ID de empleado:</label>
-            <span class="texto-bold">101</span>
+            <span class="texto-bold" th:text="${empleado.id}"></span>
         </div>
         <div>
             <label for="nombre">Nombre:</label>
-            <span class="texto-bold">Juan</span>
+            <span class="texto-bold" th:text="${empleado.nombre}"></span>
         </div>
         <div>
             <label for="primerApellido">Primer apellido:</label>
-            <span class="texto-bold">Pérez</span>
+            <span class="texto-bold" th:text="${empleado.primerApellido}"></span>
         </div>
          <div>
             <label for="segundoApellido">Segundo apellido:</label>
-            <span class="texto-bold">Gómez</span>
+            <span class="texto-bold" th:text="${empleado.segundoApellido}"></span>
         </div>
          <div>
             <fieldset>
                 <legend>Genero:</legend>
-                <span class="texto-bold">HOMBRE</span>
+                <span class="texto-bold" th:text="${empleado.genero}"></span>
             </fieldset>
         </div>
         <div>
             <label for="fechaAlta">Fecha alta:</label>
-            <span class="texto-bold">15/01/2024</span>
+            <span class="texto-bold" th:text="${empleado.fechaInicio}"></span>
         </div>
         <div>
             <label for="salario">Salario:</label>
-            <span class="texto-bold">35000 €</span>
+            <span class="texto-bold" th:text="${empleado.salario}"></span>
         </div>
         <div>
             <label for="departamentos">Departamento:</label>
-            <span class="texto-bold">Marketing</span>
+            <span class="texto-bold" th:text="${empleado.departamento.nombre}"></span>
         </div>
         <div>
             <label for="telefonos">Telefono(s): </label>
-            <span class="texto-bold">666111222; 912345678</span>
+            <span class="texto-bold" th:text="${telefonos}"></span>
         </div>
         <div>
             <label for="emails">Email(s): </label>
-            <span class="texto-bold">juan.perez@empresa.com</span>
+            <span class="texto-bold" th:text="${emails}"></span>
         </div>
     </div>
 </body>

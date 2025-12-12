@@ -36,4 +36,9 @@ public class CorreoServiceImpl implements CorreoService {
     public void deleteByEmpleado(Empleado empleado) {
         correoDao.deleteByEmpleado(empleado);
     }
+
+    @Override
+    public List<Correo> findByEmpleado(Empleado empleado) {
+        return correoDao.findByEmpleado(empleado);
+    }
 }
