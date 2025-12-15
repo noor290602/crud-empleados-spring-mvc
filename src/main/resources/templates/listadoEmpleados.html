@@ -9,108 +9,112 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
 
     <style type="text/css">
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Inter", sans-serif;    
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Inter", sans-serif;
+        }
 
-    table, th, td {
-        border: 1px solid;
-        border-collapse: collapse;
-        padding: 20px 50px;
-    }
+        table,
+        th,
+        td {
+            border: 1px solid;
+            border-collapse: collapse;
+            padding: 20px 50px;
+        }
 
-    h1 {
-        color: white;
-        text-align: center;
-        font-weight: bolder;
-    }
+        h1 {
+            color: white;
+            text-align: center;
+            font-weight: bolder;
+        }
 
-    th {
-        background-color: rgb(249, 154, 170);
-        color: white;
-        border: solid black 1px;
-        font-weight: bold;
-    }
+        th {
+            background-color: rgb(249, 154, 170);
+            color: white;
+            border: solid black 1px;
+            font-weight: bold;
+        }
 
-    .sin-estilo, table {
-        border-width: 0 !important;
-        background-color: transparent;
-        padding: 20px;
-    }
+        .sin-estilo,
+        table {
+            border-width: 0 !important;
+            background-color: transparent;
+            padding: 20px;
+        }
 
-    #titulo {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1em;
-        width: 100%;
-        padding: 20px 10px;
-        background-color: pink;
-        margin-bottom: 1em;
-    }
-
-    #titulo p {
-        font-size: 2em;
-    }
-
-    .texto-bold {
-        font-weight: bold;
-        background-color: rgb(253, 230, 234);
-    }
-
-    body {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 2em;
-    }
-
-    a {
-        text-decoration: none;
-    }
-
-    .iconos-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 8px;
-        color: black;
-        padding: 10px 10px;
-        border: 1px solid rgb(249, 154, 170);
-
-        a {
+        #titulo {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            color: black;
+            gap: 1em;
+            width: 100%;
+            padding: 20px 10px;
+            background-color: pink;
+            margin-bottom: 1em;
         }
 
-        &:hover {
-            background-color: rgb(249, 154, 170);
-            color: white;
-            cursor: pointer;
+        #titulo p {
+            font-size: 2em;
+        }
 
-            a span {
+        .texto-bold {
+            font-weight: bold;
+            background-color: rgb(253, 230, 234);
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2em;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .iconos-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            color: black;
+            padding: 10px 10px;
+            border: 1px solid rgb(249, 154, 170);
+
+            a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+                text-decoration: none;
+                color: black;
+            }
+
+            &:hover {
+                background-color: rgb(249, 154, 170);
                 color: white;
+                cursor: pointer;
+
+                a span {
+                    color: white;
+                }
             }
         }
-    }
 
-    .iconos-button:hover img {
-        /* Este filtro convierte casi cualquier color en blanco puro */
-        filter: brightness(0) invert(1); 
-    }
-    
-</style>
+        .iconos-button:hover img {
+            /* Este filtro convierte casi cualquier color en blanco puro */
+            filter: brightness(0) invert(1);
+        }
+    </style>
 </head>
 
 <!-- Hay solo 1 frontcontroller, pero controladores todos los que se necesiten, uno por cada entidad que le quieras dar mantenimiento (CRUD)-->
@@ -128,7 +132,7 @@
             <span>Añadir empleado</span>
         </a>
     </div>
-   
+
     <div th:if="${empleados.isEmpty}">
         <p>No hay empleados registrados :(</p>
     </div>
@@ -150,7 +154,10 @@
             <tbody>
                 <tr th:each="empleado : ${empleados}">
                     <td th:text="${empleado.id}" class="texto-bold"></td>
-                    <td>insertar imagen</td>
+                    <td>
+                        <img th:if="${empleado.foto != null}" th:src="@{/images/} + ${empleado.foto}" alt="Imagen de un empleado">
+                        <p th:if="${empleado.foto == null}">-</p>
+                    </td>
                     <td th:text="${empleado.nombre}"></td>
                     <td th:text="${empleado.primerApellido + ' ' + empleado.segundoApellido}"></td>
                     <td th:text="${empleado.salario}"></td>

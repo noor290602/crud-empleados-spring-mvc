@@ -194,6 +194,10 @@
                 </ul>
             </span>
         </div>
+        <div th:if="${fotoEmpleado != null}">
+            <label for="foto">Foto:</label>
+            <img th:src="@{/images/}+${fotoEmpleado}" alt="Imagen de un empleado">
+        </div>
     </div>
 </body>
 

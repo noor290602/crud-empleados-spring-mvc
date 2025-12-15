@@ -63,6 +63,10 @@ public class EmpleadoController {
 
         model.addAttribute("direccionesCorreo", direccionesCorreo);
 
+        // Recuperar el nombre de la foto del empleado
+        String fotoEmpleado = empleado.getFoto();
+        model.addAttribute("fotoEmpleado", fotoEmpleado);
+
         return "empleadoVista";
     }
 
@@ -260,7 +264,27 @@ public class EmpleadoController {
     @GetMapping("/delete/{idEmpleado}")
     public String eliminarEmpleado(@PathVariable("idEmpleado") int idEmpleado) {
 
-        empleadoService.deleteEmpleado(empleadoService.getEmpleado(idEmpleado));
+        // Necesito almacenar una referencia al empleado que se va a eliminar
+        // para poder extraer el nombre de la foto antes de eliminar el empleado
+        Empleado empleadoAEliminar = empleadoService.getEmpleado(idEmpleado);
+
+        // Comprobar si el empleado tiene foto
+        if (empleadoAEliminar.getFoto() != null) {
+            // Ruta relativa a la imagen a eliminar
+            Path rutaRelativa = Paths.get("src/main/resources/static/images/" + empleadoAEliminar.getFoto()); 
+
+            // Comprobar que la ruta relativa creada existe, es decir, si existe el fichero de imagen 
+            // del empleado
+            if (Files.exists(rutaRelativa)) {
+                try {
+                    Files.delete(rutaRelativa);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        empleadoService.deleteEmpleado(empleadoAEliminar);
 
         return "redirect:/empleados/listar";
     }
