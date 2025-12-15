@@ -46,10 +46,18 @@ public class EmpleadoController {
         model.addAttribute("empleado", empleado);
 
         List<Telefono> listaTelefonos = telefonoService.findByEmpleado(empleado);
-        model.addAttribute("telefonos", listaTelefonos);
+        List<String> numeroTelefonos = listaTelefonos.stream()
+            .map(t -> t.getNumero())
+            .toList();
+            
+        model.addAttribute("numeroTelefonos", numeroTelefonos);
 
         List<Correo> listaCorreos = correoService.findByEmpleado(empleado);
-        model.addAttribute("emails", listaCorreos);
+        List<String> direccionesCorreo = listaCorreos.stream()
+            .map(c -> c.getEmail())
+            .toList();
+
+        model.addAttribute("direccionesCorreo", direccionesCorreo);
 
         return "empleadoVista";
     }

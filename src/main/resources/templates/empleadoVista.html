@@ -182,7 +182,7 @@
             <label for="telefonos">Telefono(s): </label>
             <span class="texto-bold">
                 <ul>
-                    <li th:each="tel : ${telefonos}" th:text="${tel.numero}"></li>
+                    <li th:each="tel : ${numeroTelefonos}" th:text="${tel}"></li>
                 </ul>
             </span>
         </div>
@@ -190,7 +190,7 @@
             <label for="emails">Email(s): </label>
             <span class="texto-bold">
                 <ul>
-                    <li th:each="correo : ${emails}" th:text="${correo.email}"></li>
+                    <li th:each="correo : ${direccionesCorreo}" th:text="${correo}"></li>
                 </ul>
             </span>
         </div>
