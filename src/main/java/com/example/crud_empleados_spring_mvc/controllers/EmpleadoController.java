@@ -22,7 +22,6 @@ import com.example.crud_empleados_spring_mvc.services.TelefonoService;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,25 +41,15 @@ public class EmpleadoController {
 
     @GetMapping("/view/{idEmpleado}")
     public String verEmpleado(@PathVariable("idEmpleado") int idEmpleado, Model model) {
-        
+
         Empleado empleado = empleadoService.getEmpleado(idEmpleado);
         model.addAttribute("empleado", empleado);
 
         List<Telefono> listaTelefonos = telefonoService.findByEmpleado(empleado);
-        String telefonosEmpleado = "";
-        for (Telefono telefono : listaTelefonos) {
-            telefonosEmpleado += telefono.getNumero() + "; ";
-        };
-
-        model.addAttribute("telefonos", telefonosEmpleado);
+        model.addAttribute("telefonos", listaTelefonos);
 
         List<Correo> listaCorreos = correoService.findByEmpleado(empleado);
-        String correosEmpleado = "";
-        for (Correo correo : listaCorreos) {
-            correosEmpleado += correo.getEmail() + "; ";
-        };
-        
-        model.addAttribute("emails", correosEmpleado);
+        model.addAttribute("emails", listaCorreos);
 
         return "empleadoVista";
     }

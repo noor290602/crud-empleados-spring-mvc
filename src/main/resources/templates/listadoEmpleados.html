@@ -129,7 +129,11 @@
         </a>
     </div>
    
-    <div>
+    <div th:if="${empleados.isEmpty}">
+        <p>No hay empleados registrados :(</p>
+    </div>
+
+    <div th:if="${!empleados.isEmpty}">
         <table>
             <thead>
                 <tr>
