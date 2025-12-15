@@ -138,6 +138,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Imagen</th>
                     <th>Nombre</th>
                     <th>Apellidos</th>
                     <th>Salario</th>
@@ -149,6 +150,7 @@
             <tbody>
                 <tr th:each="empleado : ${empleados}">
                     <td th:text="${empleado.id}" class="texto-bold"></td>
+                    <td>insertar imagen</td>
                     <td th:text="${empleado.nombre}"></td>
                     <td th:text="${empleado.primerApellido + ' ' + empleado.segundoApellido}"></td>
                     <td th:text="${empleado.salario}"></td>

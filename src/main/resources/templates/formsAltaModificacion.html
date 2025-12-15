@@ -155,7 +155,8 @@
             </a>
         </div>
     </div>
-    <form th:action="@{/empleados/guardar}" th:object="${empleado}" method="post">
+    <!-- enctype="multipart/form-data": pq en el servidor hemos escogido que se envie por trozos -->
+    <form th:action="@{/empleados/guardar}" th:object="${empleado}" method="post" enctype="multipart/form-data">
         <input type="hidden" th:field="*{id}">
         <div>
             <label for="nombre">Nombre:</label>
@@ -207,6 +208,13 @@
             <label for="emails">Email(s): </label>
             <input type="text" id="emails" name="emailsEmpleado" placeholder="Separe los emails por ';'" th:value="${dirsCorreo}" size="50" required>
         </div>
+
+        <!-- Gestión de la foto del empleado -->
+        <div>
+            <label for="file">Foto del empleado: </label>
+            <input type="file" id="file" name="fotoEmpleado">
+        </div>
+
         <div class="btnSubmit">
             <button type="submit">Guardar</button>
         </div>

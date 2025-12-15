@@ -1,5 +1,8 @@
 package com.example.crud_empleados_spring_mvc.controllers;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.crud_empleados_spring_mvc.entities.Correo;
 import com.example.crud_empleados_spring_mvc.entities.Departamento;
@@ -125,10 +129,45 @@ public class EmpleadoController {
     @PostMapping("/guardar")
     public String guardarEmpleado(@ModelAttribute("empleado") Empleado empleado, 
         @RequestParam(name = "telefonosEmpleado", required = false) String telefonosEmpleado, 
-        @RequestParam(name = "emailsEmpleado", required = false) String emailsEmpleado) {
+        @RequestParam(name = "emailsEmpleado", required = false) String emailsEmpleado,
+        @RequestParam(name= "fotoEmpleado", required = false) MultipartFile imagenEmpleado
+    ) {
 
         /* Comprobar si el objeto empleado lo hemos recibido */
         LOGGER.info("Empleado recibido: " + empleado);
+
+         // Comprobar si me han enviado foto para el empleado en cuestión
+        if (imagenEmpleado != null && !imagenEmpleado.isEmpty()) {
+            
+            // El contenido de la foto se guardará en el sistema de archivos (file system) del servidor
+            // utilizando los metodos del paquete NIO.2 (Entrada/Salida (I/O) Non Blocking y el 2, es pq
+            // hubo una versión 1 que no sirvió para nada)
+
+            // No Bloqueante -> significa que el resto de la app no se queda bloqueada mientras se maneja,
+            // el fichero/s, pq se manejan de forma asincrona
+
+            //Para comprender el código que desarrollaremos, vamos a ver el DOC: File I_O con NIO.2.pdf
+
+            //Recuperar la ruta relativa de la carpeta donde se va a guardar la imagen en el sistema
+            //de archivos del servidor web tomcat
+            Path rutaRelativa = Paths.get("src/main/resources/static/images");
+
+            // Recuperar la ruta absoluta (va desde la raíz hasta la carpeta donde se almacenará la imagen)
+            String rutaAbsoluta = rutaRelativa.toFile().getAbsolutePath();
+
+            // Ruta completa
+            Path rutaCompleta = Paths.get(rutaAbsoluta + "/" + imagenEmpleado.getOriginalFilename());
+
+            try {
+                byte[] imagenRecibidaEnBytes = imagenEmpleado.getBytes();
+                Files.write(rutaCompleta, imagenRecibidaEnBytes);
+                empleado.setFoto(imagenEmpleado.getOriginalFilename());
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
 
         Empleado empGuardado = empleadoService.saveEmpleado(empleado);
 

@@ -73,4 +73,6 @@ public class Empleado {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "empleado")
     private List<Correo> correos;
+
+    private String foto;
 }
